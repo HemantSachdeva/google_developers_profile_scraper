@@ -15,12 +15,11 @@ def remove_tags(html):
 
     return ' '.join(soup.stripped_strings)
 df = pd.read_csv('test.csv')
-df1 = df[['url', 'name','email']]
+df1 = df[['url', 'name']]
 saved_column = df.url
 paragraphs = ""
 name=[]
 badges=[]
-email=[]
 total=[]
 scores=[]
 
@@ -41,7 +40,7 @@ sql=[]
 datapers=[]
 workmanager=[]
 
-for v,w,z in zip(df1.url,df1.name,df1.email):
+for v,w in zip(df1.url,df1.name):
     paragraphs=""
     introtokotstr = "No"
     firstapinasstr = "No"
@@ -66,7 +65,6 @@ for v,w,z in zip(df1.url,df1.name,df1.email):
     wd = webdriver.Chrome(options=options)
     responce = wd.get(v)
     name.append(w)
-    email.append(z)
     time.sleep(8)  # page loads completely
     soup = BeautifulSoup(wd.page_source, 'lxml')
     div = soup.find_all('div', {'class':'badge-title'})
@@ -144,7 +142,7 @@ for v,w,z in zip(df1.url,df1.name,df1.email):
     total.append(totals)
     paragraphs = paragraphs + "<br><br>"
     badges.append(badgelist)
-dict = {'Name': name,'Email':email, 'Badges': badges,'Introduction to Kotlin':introtokot,'First App in Android Studio':firstapinas,'Build Basic Layout':buildbasiclay,'Dice Roller App':diceroller,'Get User Input 1':getuip1,'Get User Input 2':getuip2,'Scroll List':scrollist,'Navigation Screen':navscreen,'Navigation Components':navcomp,'Architecture Components':archcom,'Navigation App':navapp,'Coroutine':coroutine,'Display Internet':displayinternet,'SQL':sql,'Data Persistence':datapers,'Work Manager':workmanager, 'Score Out of 16':scores,'All Badges':total}
+dict = {'Name': name, 'Badges': badges,'Introduction to Kotlin':introtokot,'First App in Android Studio':firstapinas,'Build Basic Layout':buildbasiclay,'Dice Roller App':diceroller,'Get User Input 1':getuip1,'Get User Input 2':getuip2,'Scroll List':scrollist,'Navigation Screen':navscreen,'Navigation Components':navcomp,'Architecture Components':archcom,'Navigation App':navapp,'Coroutine':coroutine,'Display Internet':displayinternet,'SQL':sql,'Data Persistence':datapers,'Work Manager':workmanager, 'Score Out of 16':scores,'All Badges':total}
 df = pd.DataFrame(dict)
 df.to_csv('datasheet.csv')
 paragraphs=remove_tags(paragraphs)
