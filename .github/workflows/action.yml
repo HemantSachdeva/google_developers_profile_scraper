@@ -1,0 +1,31 @@
+name: Google Developer Profile Badges Scraper
+on:
+  workflow_dispatch:
+  push:
+      branches:
+             - main
+  pull_request:
+      branches:
+             - main
+
+jobs:
+    google-developers-profile-badges-scraper:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0 # need not to fetch whole commit history
+                  ref: dumps # checkout dumps branch
+            - name: Set up Python 3.10
+              uses: actions/setup-python@v2
+              with:
+                  python-version: 3.10.0
+            - name: Run the scraper
+              run: bash scraper.sh
+            - name: Commit changes
+              run: |
+                  git config user.email "hemant.evolver@gmail.com"
+                  git config user.name "Hemant Sachdeva"
+                  git add -A
+                  git commit -m "Update badges"
+                  git push origin dumps
