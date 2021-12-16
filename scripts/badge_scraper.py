@@ -14,7 +14,7 @@ def remove_tags(html):
         data.decompose()
 
     return ' '.join(soup.stripped_strings)
-df = pd.read_csv('test.csv')
+df = pd.read_csv('data/input.csv')
 df1 = df[['url', 'name']]
 saved_column = df.url
 paragraphs = ""
@@ -142,7 +142,7 @@ for v,w in zip(df1.url,df1.name):
     paragraphs = paragraphs + "<br><br>"
 dict = {'Name': name,'Score Out of 16':scores,'Introduction to Kotlin':introtokot,'First App in Android Studio':firstapinas,'Build Basic Layout':buildbasiclay,'Dice Roller App':diceroller,'Get User Input 1':getuip1,'Get User Input 2':getuip2,'Scroll List':scrollist,'Navigation Screen':navscreen,'Navigation Components':navcomp,'Architecture Components':archcom,'Navigation App':navapp,'Coroutine':coroutine,'Display Internet':displayinternet,'SQL':sql,'Data Persistence':datapers,'Work Manager':workmanager,'All Badges':total}
 df = pd.DataFrame(dict)
-df.to_csv('datasheet.csv')
+df.to_csv('data/scrapped_data.csv')
 paragraphs=remove_tags(paragraphs)
 
 """

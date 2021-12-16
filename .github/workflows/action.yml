@@ -17,8 +17,11 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                  fetch-depth: 0 # need not to fetch whole commit history
                   ref: dumps # checkout dumps branch
+            - name: Set Timezone # Set timezone to IST for logs file
+              uses: szenius/set-timezone@v1.0
+              with:
+                timezoneLinux: "Asia/Kolkata"
             - name: Set up Python 3.10
               uses: actions/setup-python@v2
               with:
@@ -26,7 +29,7 @@ jobs:
             - name: Install dependencies
               run: pip install -r requirements.txt
             - name: Run the scraper
-              run: bash scraper.sh
+              run: bash scripts/scraper.sh
             - name: Commit changes
               run: |
                   git config user.email "hemant.evolver@gmail.com"
