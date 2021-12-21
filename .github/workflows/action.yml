@@ -1,8 +1,8 @@
 name: Google Developer Profile Badges Scraper
 on:
-  # Schedule the workflow to run on an interval of 3 hours
+  # Schedule the workflow to run on an interval of 5 hours
   schedule:
-    - cron: "0 */3 * * *"
+    - cron: "0 */5 * * *"
   workflow_dispatch:
   push:
       branches:
